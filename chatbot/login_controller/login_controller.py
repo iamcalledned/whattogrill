@@ -1,7 +1,14 @@
 # login_controller.py
+import sys
+import os
+# Get the directory of the current script
+current_script_path = os.path.dirname(os.path.abspath(__file__))
+# Set the path to the parent directory (one folder up)
+parent_directory = os.path.dirname(current_script_path)
+# Add the config directory to sys.path
+sys.path.append(os.path.join(parent_directory, 'config'))
 from flask import Flask, redirect, request, session, url_for, render_template, make_response
 from flask_cors import CORS
-import os
 import redis
 import json
 from auth import generate_nonce, exchange_code_for_token, validate_token

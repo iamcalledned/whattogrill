@@ -1,9 +1,16 @@
 # callback_handler.py
+import sys
+import os
+# Get the directory of the current script
+current_script_path = os.path.dirname(os.path.abspath(__file__))
+# Set the path to the parent directory (one folder up)
+parent_directory = os.path.dirname(current_script_path)
+# Add the config directory to sys.path
+sys.path.append(os.path.join(parent_directory, 'config'))
 from flask import Flask, redirect, request, session, url_for, render_template, make_response
 from auth import exchange_code_for_token, validate_token, generate_nonce
 import config
 import json
-import os
 import redis
 from page_renderer import logged_in
 import logging

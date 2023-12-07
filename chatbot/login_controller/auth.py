@@ -1,5 +1,13 @@
 # auth.py
+import sys
 import os
+# Get the directory of the current script
+current_script_path = os.path.dirname(os.path.abspath(__file__))
+# Set the path to the parent directory (one folder up)
+parent_directory = os.path.dirname(current_script_path)
+# Add the config directory to sys.path
+sys.path.append(os.path.join(parent_directory, 'config'))
+
 import base64
 import requests
 import jwt
