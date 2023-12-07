@@ -87,7 +87,7 @@ if __name__ == '__main__':
 
     # Create an SSL context
     ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-    ssl_context.load_cert_chain('/home/ubuntu/whattogrill-backend/fullchain.pem', '/home/ubuntu/whattogrill-backend/privkey.pem')
+    ssl_context.load_cert_chain('/home/ubuntu/whattogrill-backend/bot/fullchain.pem', '/home/ubuntu/whattogrill-backend/bot/privkey.pem')
 
 
     # Start the WebSocket server
