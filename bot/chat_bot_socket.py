@@ -7,6 +7,7 @@ current_script_path = os.path.dirname(os.path.abspath(__file__))
 parent_directory = os.path.dirname(current_script_path)
 # Add the config directory to sys.path
 sys.path.append(os.path.join(parent_directory, 'database'))
+sys.path.append(os.path.join(parent_directory, 'config'))
 import redis
 import asyncio
 import json
