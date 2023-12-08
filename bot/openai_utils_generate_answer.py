@@ -9,6 +9,12 @@ from database import get_active_thread_for_user, insert_user, insert_thread, ins
 import datetime
 import logging
 import asyncio
+import config
+
+
+# Other imports as necessary
+OPENAI_API_KEY = config.OPENAI_API_KEY
+
 
 log_file_path = '/home/ubuntu/whattogrill-backend/logs/generate_answer_logs.txt'
 logging.basicConfig(
