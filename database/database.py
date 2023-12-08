@@ -2,9 +2,11 @@
 import sqlite3
 from sqlite3 import Error
 import datetime
+import config
+
 
 # Define the DB_PATH directly here or use a separate configuration file
-DB_PATH = '/home/ubuntu/whattogrill-backend/bot/chatbot.db'
+DB_PATH = config.DB_PATH
 
 def create_connection(db_file=DB_PATH):
     try:
