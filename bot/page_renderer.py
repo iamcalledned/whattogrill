@@ -21,7 +21,7 @@ logging.basicConfig(
 redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
 
 
-def logged_in(session, redis_client):
+async def logged_in(session, redis_client):
     if 'username' in session:
         
         nonce = generate_nonce()
@@ -55,7 +55,7 @@ def logged_in(session, redis_client):
 
         
         print("USER LOGGED IN: ", user_info)
-        return render_template('chat.html', sessionId=session_id, nonce=nonce, user_info=user_info)
-        #return send_from_directory('/var/www/html', 'chat.html', sessionId=session_id, nonce=nonce, user_info=user_info)
+        #return render_template('chat.html', sessionId=session_id, nonce=nonce, user_info=user_info)
+        return send_from_directory('/var/www/html', 'chat.html', sessionId=session_id, nonce=nonce, user_info=user_info)
     else:
         return redirect(url_for('login'))
