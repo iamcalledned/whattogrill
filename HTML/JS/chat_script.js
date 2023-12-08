@@ -7,6 +7,15 @@
         $('#typing-container').hide();
     }
     
+    // Function to fetch session data
+    function fetchSessionData() {
+    $.getJSON('/get_session_data', function(data) {
+        initializeWebSocket(data.sessionId, data.nonce, data.userInfo);
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('Error fetching session data:', textStatus, errorThrown);
+    });
+    }
+
     // Function to initialize WebSocket connection
     function initializeWebSocket() {
         var socket = new WebSocket('wss://www.whattogrill.com:8055');
@@ -85,6 +94,10 @@
     }
     
     // Use the document ready function to initialize WebSocket connection
+    $(document).ready(function() {
+        fetchSessionData();
+    });
+    
     $(document).ready(function() {
         initializeWebSocket();
     });

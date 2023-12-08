@@ -8,7 +8,7 @@ parent_directory = os.path.dirname(current_script_path)
 # Add the config directory to sys.path
 sys.path.append(os.path.join(parent_directory, 'config'))
 sys.path.append(os.path.join(parent_directory, 'bot'))
-from flask import Flask, redirect, request, session, url_for, render_template, make_response
+from flask import Flask, redirect, request, session, url_for, render_template, make_response, jsonify
 from flask_cors import CORS
 import redis
 import json
@@ -21,6 +21,7 @@ import page_renderer
 from asgiref.wsgi import WsgiToAsgi
 import logging
 import gevent
+
 
 
 log_file_path = '/home/ubuntu/whattogrill-backend/logs/callback_logs.txt'
@@ -45,6 +46,18 @@ print("redis client", redis_client)
 async def login():
     auth_url = f"{config.COGNITO_DOMAIN}/login?client_id={config.COGNITO_APP_CLIENT_ID}&response_type=code&scope=openid&redirect_uri={config.REDIRECT_URI}"
     return redirect(auth_url)
+
+
+@app.route('/get_session_data')
+def get_session_data():
+    # Assuming session_id and nonce are stored in the Flask session or similar
+    session_id = session.get('session_id')
+    nonce = session.get('nonce')
+    user_info = session.get('user_info')  # Adjust as per your actual session keys
+
+    return jsonify(sessionId=session_id, nonce=nonce, userInfo=user_info)
+
+
 
 #process the callback from AWS Cognito and attempt to log user in
 @app.route('/callback')
