@@ -21,6 +21,8 @@ import config
 
 
 # Other imports as necessary
+OPENAI_API_KEY = config.OPENAI_API_KEY
+
 
 log_file_path = '/home/ubuntu/whattogrill-backend/logs/chat_bot_logs.txt'
 logging.basicConfig(
@@ -30,6 +32,7 @@ logging.basicConfig(
 )
 # Initialize Redis client
 redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
+
 
 async def chatbot_handler(websocket, path):
     logging.info(f"New WebSocket connection from {websocket.remote_address}")
