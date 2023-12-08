@@ -15,6 +15,8 @@ import json
 from jwt.algorithms import RSAAlgorithm
 import config
 import logging
+import gevent
+
 
 # Cognito Configuration
 COGNITO_USER_POOL_ID = config.COGNITO_USER_POOL_ID

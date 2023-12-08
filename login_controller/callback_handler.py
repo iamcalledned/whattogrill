@@ -15,6 +15,8 @@ import redis
 from page_renderer import logged_in
 import logging
 import asyncio
+import gevent
+
 
 # Configure logging with an absolute path for the log file
 log_file_path = '/home/ubuntu/whattogrill-backend/logs/callback_logs.txt'

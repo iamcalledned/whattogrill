@@ -20,6 +20,8 @@ import websockets
 import page_renderer
 from asgiref.wsgi import WsgiToAsgi
 import logging
+import gevent
+
 
 log_file_path = '/home/ubuntu/whattogrill-backend/logs/callback_logs.txt'
 logging.basicConfig(
