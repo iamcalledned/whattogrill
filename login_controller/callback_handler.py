@@ -32,6 +32,7 @@ async def handle_callback(redis_client, existing_session_id):
     
     print("in callback")
     print("redis client:", redis_client)
+    print("existing session id before code line:", existing_session_id)
     code = request.args.get('code')
     print("code:", code)
     # Retrieve session data before checking the code
