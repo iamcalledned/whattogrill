@@ -1,13 +1,5 @@
 # page_renderer.py
-import sys
-import os
-# Get the directory of the current script
-current_script_path = os.path.dirname(os.path.abspath(__file__))
-# Set the path to the parent directory (one folder up)
-parent_directory = os.path.dirname(current_script_path)
-# Add the config directory to sys.path
-sys.path.append(os.path.join(parent_directory, 'config'))
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, send_from_directory
 from auth import generate_nonce
 import json
 import asyncio
@@ -15,9 +7,6 @@ import websockets
 import redis
 import config
 import logging
-import asyncio
-import gevent
-
 
 
 log_file_path = '/home/ubuntu/whattogrill-backend/logs/page_renderer_logs.txt'
@@ -32,7 +21,7 @@ logging.basicConfig(
 redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
 
 
-async def logged_in(session, redis_client):
+def logged_in(session, redis_client):
     if 'username' in session:
         
         nonce = generate_nonce()
@@ -65,6 +54,7 @@ async def logged_in(session, redis_client):
 
         
         print("USER LOGGED IN: ", user_info)
-        return render_template('chat.html', sessionId=session_id, nonce=nonce, user_info=user_info)
+        #return render_template('chat.html', sessionId=session_id, nonce=nonce, user_info=user_info)
+        return send_from_directory('/var/www/html', 'chat.html', sessionId=session_id, nonce=nonce, user_info=user_info)
     else:
         return redirect(url_for('login'))
