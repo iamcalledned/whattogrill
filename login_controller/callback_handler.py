@@ -14,6 +14,7 @@ import json
 import redis
 from page_renderer import logged_in
 import logging
+import asyncio
 
 # Configure logging with an absolute path for the log file
 log_file_path = '/home/ubuntu/whattogrill-backend/logs/callback_logs.txt'
@@ -24,7 +25,7 @@ logging.basicConfig(
 )
 
 
-def handle_callback(redis_client):
+async def handle_callback(redis_client):
     
     print("in callback")
     print("redis client:", redis_client)
