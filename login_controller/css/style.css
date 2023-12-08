@@ -1,5 +1,8 @@
+/* Include Roboto font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+/* Reset default margin and padding for the entire document */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f5f5f5;
@@ -9,19 +12,21 @@ body {
     height: 100vh;
 }
 
+/* Chat container styles */
 #chat-container {
     width: 100%;
     max-width: 600px;
-    margin: 20px;
+    margin: 0; /* Remove margin on mobile */
     background: #fff;
     border: 1px solid #ddd;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    height: 80vh;
+    height: 100vh;
 }
 
+/* Message container styles */
 #messages {
     overflow-y: auto;
     flex-grow: 1;
@@ -29,34 +34,60 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
-
-.message {
-    max-width: 75%;
-    padding: 10px 20px;
-    border-radius: 18px;
-    margin-bottom: 2px;
-    font-size: 16px;
-    line-height: 1.6;
-    position: relative;
+    white-space: pre-wrap; 
     word-wrap: break-word;
-    white-space: pre-wrap; /* This will cause the element to respect newlines and spaces */
 }
 
+/* Message styles */
+
+/* User message styles */
 .message.user {
-    align-self: flex-end;
-    background-color: #007bff;
+    background-color: #007bff; /* User message background color */
     color: white;
-    border-bottom-right-radius: 2px;
+    align-self: flex-end; /* Aligns the user messages to the right */
+    margin-right: 10px; /* Additional margin for better spacing */
+    border-radius: 20px; /* Rounded corners for user messages */
+    padding: 10px 15px; /* Padding for user messages */
+}
+/* Add bubble tail for user messages */
+.message.user::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+    border-top-color: #DCF8C6;
+    border-bottom: 0;
+    margin-right: -15px;
+    margin-bottom: -15px;
+}
+/* Add bubble tail for bot messages */
+.message.bot::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+    border-top-color: #ffffff;
+    border-bottom: 0;
+    margin-left: -15px;
+    margin-bottom: -15px;
 }
 
+/* Bot message styles */
 .message.bot {
-    align-self: flex-start;
-    background-color: #e5e5ea;
+    background-color: #f1f1f1; /* Bot message background color */
     color: black;
-    border-bottom-left-radius: 2px;
+    align-self: flex-start; /* Aligns the bot messages to the left */
+    margin-left: 10px; /* Additional margin for better spacing */
+    border-radius: 20px; /* Rounded corners for bot messages */
+    padding: 10px 15px; /* Padding for bot messages */
 }
-
+/* Typing indicator container styles */
 #typing-container {
     display: flex;
     align-items: center;
@@ -64,12 +95,14 @@ body {
     margin-bottom: 10px;
 }
 
+/* Typing text styles */
 #typing-text {
     font-size: 0.8em;
     color: #555;
     margin-right: 5px;
 }
 
+/* Typing indicator dot animation */
 .typing-indicator {
     display: flex;
     align-items: center;
@@ -89,52 +122,77 @@ body {
     100% { transform: translateX(20px); }
 }
 
+/* Input group styles */
 .input-group {
     display: flex;
     padding: 0 10px 10px 10px;
 }
 
+/* Message input styles */
 #message-input {
     flex-grow: 1;
     padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 20px;
+    border-radius: 18px;
     font-size: 16px;
     line-height: 1.6;
     margin-right: 10px;
 }
 
-#send-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    line-height: 1.6;
-    transition: background-color 0.3s ease;
-}
+/* Send button styles */
+/*#send-button {
+/*    padding: 10px 20px;
+/*   background-color: #007bff;
+/*    color: white;
+/*    border: none;
+/*    border-radius: 20px;
+/*    cursor: pointer;
+/*    font-size: 16px;
+/*    line-height: 1.6;
+/*    transition: background-color 0.3s ease;
+/*} */
 
+#send-button {
+    background-color: transparent; /* Removes default blue background */
+    color: #007bff; /* Icon color */
+    text-indent: -9999px; /* Hides the text */
+    overflow: hidden; /* Ensures the text doesn't show */
+    background-image: url('send-icon.svg'); /* Add your send icon here */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px 24px; /* Adjust size as needed */
+    border-radius: 50%; /* Circular shape */
+    padding: 10px; /* Adjust padding to fit the icon */
+}
+/* Send button hover effect */
 #send-button:hover {
     background-color: #0056b3;
 }
 
+/* Media query for smaller screens (e.g., mobile devices) */
 @media (max-width: 768px) {
     #chat-container {
-        height: 90vh;
+        height: 75vh; /* Reduced height for better mobile fit */
         width: 95%;
-        margin: 10px;
+        margin-top: 0; /* Or a smaller value than you currently have */
+        margin: 5px auto 10px auto; /* Smaller top margin, auto horizontal margins, slightly larger bottom margin */
+        display: flex;
+        flex-direction: column; /* Ensures contents are laid out vertically */
     }
 
-    .message {
-        font-size: 14px; /* Adjust text size for readability */
+    #messages {
+        flex-grow: 1; /* Allows chat messages to fill available space */
+        overflow-y: auto; /* Ensures scrolling within the messages area */
+        /* Reduce or adjust padding/margin as needed */
     }
 
-    #message-input, #send-button {
-        font-size: 14px;
+    /* Ensure the chat entry (input group) is always visible */
+    .input-group {
+        margin-bottom: 10px; /* Adjust as needed */
     }
 }
+
+/* Chat header styles (if you have a header) */
 .chat-header {
     display: flex;
     justify-content: center; /* Center logo horizontally */
@@ -143,8 +201,83 @@ body {
     background-color: #f5f5f5; /* Set a background color, if desired */
 }
 
+/* Chat logo styles (if you have a logo) */
 .chat-logo {
     max-height: 50px; /* Limit the size of the logo */
     width: auto; /* Maintain aspect ratio */
     /* Add other styling as needed */
 }
+/* Chat header styles */
+.chat-header {
+    position: relative; /* This allows absolute positioning relative to the header */
+    display: flex;
+    justify-content: center; /* Keeps the logo centered */
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5;
+}
+
+/* Hamburger menu button styles */
+.hamburger-menu {
+    position: absolute; /* Position the menu absolutely to the left */
+    left: 10px; /* Adjust as needed, based on desired spacing from the left edge */
+    top: 50%; /* Start at the vertical center of the header */
+    transform: translateY(-50%); /* Shift upwards by half its height to center it */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px; /* Width of the button */
+    height: 25px; /* Height of the button */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.hamburger-menu span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: #333; /* Color of the menu lines */
+    border-radius: 3px;
+}
+
+/* Ensure the logo doesn't move */
+.chat-logo {
+    z-index: 1; /* Ensure logo stays on top and isn't overlapped by the absolute-positioned elements */
+}
+
+.options-menu {
+  display: none;
+  position: absolute;
+  left: 0; /* Align to the left side */
+  top: 100%; /* Directly below the header */
+  background: white; /* Or any color that matches your design */
+  border: 1px solid #ddd; /* Optional border */
+  z-index: 1000; /* Ensure it's on top of other content */
+  width: 100%; /* Or the width you prefer */
+  /* Add other styling as needed for padding, text, etc. */
+}
+.options-menu {
+  /* Existing styles... */
+}
+
+.menu-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-item {
+  padding: 10px 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd; /* Separates menu items */
+}
+
+.menu-item:hover {
+  background-color: #f2f2f2; /* Hover effect for menu items */
+}
+
+/* Overlay styles */
+
+
