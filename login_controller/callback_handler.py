@@ -7,7 +7,7 @@ current_script_path = os.path.dirname(os.path.abspath(__file__))
 parent_directory = os.path.dirname(current_script_path)
 # Add the config directory to sys.path
 sys.path.append(os.path.join(parent_directory, 'config'))
-from flask import Flask, redirect, request, session, url_for, render_template, make_response
+from flask import Flask, redirect, request, session, url_for, render_template, make_response, jsonify
 from auth import exchange_code_for_token, validate_token, generate_nonce
 import config
 import json
