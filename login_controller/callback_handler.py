@@ -16,7 +16,7 @@ from page_renderer import logged_in
 import logging
 import asyncio
 import gevent
-from login_controller import get_session_data
+
 
 
 # Configure logging with an absolute path for the log file
@@ -28,17 +28,14 @@ logging.basicConfig(
 )
 
 
-async def handle_callback(redis_client):
+async def handle_callback(redis_client, existing_session_id):
     
     print("in callback")
     print("redis client:", redis_client)
     code = request.args.get('code')
     print("code:", code)
     # Retrieve session data before checking the code
-    session_data = get_session_data()
-    session_data_json = json.loads(session_data.get_data(as_text=True))
-    user_info = session_data_json.get('sessionId')
-    print("session Id from beginning of callback")
+    print("existing session id:", existing_session_id)
 
     if code:
         try:

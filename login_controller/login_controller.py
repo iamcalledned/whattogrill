@@ -68,8 +68,12 @@ def get_session_data():
 async def callback():
     print("at /callback")
 ####maybe add a check hre to see if the user is already logged in
+    # Get session data
+    response = get_session_data()
+    session_data = response.get_json()
+    existing_session_id = session_data.get('sessionId')
 
-    return await handle_callback(redis_client)  # Pass the Redis client to the handler
+    return await handle_callback(redis_client, existing_session_id)  # Pass the Redis client to the handler
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0', port=8080)
