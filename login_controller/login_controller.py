@@ -7,6 +7,7 @@ current_script_path = os.path.dirname(os.path.abspath(__file__))
 parent_directory = os.path.dirname(current_script_path)
 # Add the config directory to sys.path
 sys.path.append(os.path.join(parent_directory, 'config'))
+sys.path.append(os.path.join(parent_directory, 'bot'))
 from flask import Flask, redirect, request, session, url_for, render_template, make_response
 from flask_cors import CORS
 import redis
@@ -39,14 +40,16 @@ redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
 print("redis client", redis_client)
 
 @app.route('/login')
-def login():
+async def login():
     auth_url = f"{config.COGNITO_DOMAIN}/login?client_id={config.COGNITO_APP_CLIENT_ID}&response_type=code&scope=openid&redirect_uri={config.REDIRECT_URI}"
     return redirect(auth_url)
 
 #process the callback from AWS Cognito and attempt to log user in
 @app.route('/callback')
-def callback():
-    return handle_callback(redis_client)  # Pass the Redis client to the handler
+async def callback():
+####maybe add a check hre to see if the user is already logged in
+
+    return await handle_callback(redis_client)  # Pass the Redis client to the handler
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0', port=8080)
