@@ -1,9 +1,17 @@
 # generate_answer.py
 import time
+import sys
+import os
+# Get the directory of the current script
+current_script_path = os.path.dirname(os.path.abspath(__file__))
+# Set the path to the parent directory (one folder up)
+parent_directory = os.path.dirname(current_script_path)
+# Add the config directory to sys.path
+sys.path.append(os.path.join(parent_directory, 'database'))
+sys.path.append(os.path.join(parent_directory, 'config'))
 from openai_utils_new_thread import create_thread_in_openai, is_thread_valid
 from openai_utils_send_message import send_message
 from openai import OpenAI
-import os
 import database  # Importing the database module
 from database import get_active_thread_for_user, insert_user, insert_thread, insert_conversation
 import datetime
