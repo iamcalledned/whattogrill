@@ -30,7 +30,23 @@
         };
     
         socket.onclose = function(event) {
+            // Basic logging
             console.log('WebSocket closed:', event);
+        
+            // Detailed logging
+            console.log('Close event properties:');
+            console.log('  - wasClean:', event.wasClean); // Indicates whether the connection was closed cleanly or not
+            console.log('  - code:', event.code); // Numeric code indicating the status code explaining why the connection has been closed
+            console.log('  - reason:', event.reason); // Human-readable string explaining why the connection was closed
+            console.log('  - type:', event.type); // Type of the event ('close' in this case)
+            console.log('  - target URL:', event.target.url); // URL of the WebSocket connection
+            console.log('  - readyState:', event.target.readyState); // The readyState of the WebSocket at the time it was closed
+        
+            // Additional diagnostics
+            if (!event.wasClean) {
+                console.warn('WebSocket closed unexpectedly.');
+            }
+        
             // Reconnect after 5 seconds
             setTimeout(initializeWebSocket, 5000);
         };

@@ -32,6 +32,8 @@ logging.basicConfig(
 redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
 
 async def chatbot_handler(websocket, path):
+    logging.info(f"New WebSocket connection from {websocket.remote_address}")
+    print("New WebSocket connection from", websocket.remote_address)
     try:
         # Initial message should contain session_id
         initial_data = await websocket.recv()
@@ -59,7 +61,12 @@ async def chatbot_handler(websocket, path):
         while True:
             # Continue with normal message handling
             data = await websocket.recv()
-            data = json.loads(data)  # Assuming the data is JSON formatted
+            try:
+                data = json.loads(data)  # Assuming the data is JSON formatted
+            except json.JSONDecodeError:
+                logging.warning(f"Received malformed data from {websocket.remote_address}")
+                print("Received malformed data from", websocket.remote_address)
+                continue  # or handle as appropriate
 
             userID = user_info.get('username', '')  # Using username from Redis
             
@@ -68,7 +75,7 @@ async def chatbot_handler(websocket, path):
             user_ip = websocket.remote_address[0]  # Get client IP address
 
             # Assuming generate_answer is a function you've defined
-            response_text = await generate_answer(userID, message, user_ip)
+            response_text = await generate_answer(userID, message, user_ip, uuid)
 
             # Prepare the response
             response = {
@@ -78,8 +85,17 @@ async def chatbot_handler(websocket, path):
             await websocket.send(json.dumps(response))
 
             logging.info(f"Processed message from {user_ip}")
-    except websockets.exceptions.ConnectionClosed:
-        logging.info("Connection closed")
+            print("Processed message from", user_ip)
+    except websockets.exceptions.ConnectionClosed as e:
+        logging.error(f"Connection closed with exception: {e}")
+        print("Connection closed with exception:", e)
+        logging.error("Exception information:", exc_info=True)
+        print("Exception information:", sys.exc_info())
+    except Exception as e:
+        logging.error(f"Unhandled exception: {e}")
+        print("Unhandled exception:", e)
+        logging.error("Exception information:", exc_info=True)
+        print("Exception information:", sys.exc_info())
 
 if __name__ == '__main__':
     server_address = '172.31.91.113'
