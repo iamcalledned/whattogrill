@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 
 # Specify the path to your .env file
-dotenv_path = '/home/ubuntu/whattogrill-backend/.env/.env'
+dotenv_path = '/home/ubuntu/gittest/whattogrill/.env/.env'
 
 # Load environment variables from the specified .env file
 load_dotenv(dotenv_path)
