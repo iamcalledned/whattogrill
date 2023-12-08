@@ -28,6 +28,7 @@ def logged_in(session, redis_client):
         
         # Get session_id from the current session
         session_id = session.get('session_id')
+        print("SESSION ID: ", session_id)
         
         
         if session_id:
@@ -54,7 +55,7 @@ def logged_in(session, redis_client):
 
         
         print("USER LOGGED IN: ", user_info)
-        #return render_template('chat.html', sessionId=session_id, nonce=nonce, user_info=user_info)
-        return send_from_directory('/var/www/html', 'chat.html', sessionId=session_id, nonce=nonce, user_info=user_info)
+        return render_template('chat.html', sessionId=session_id, nonce=nonce, user_info=user_info)
+        #return send_from_directory('/var/www/html', 'chat.html', sessionId=session_id, nonce=nonce, user_info=user_info)
     else:
         return redirect(url_for('login'))

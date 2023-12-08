@@ -11,6 +11,7 @@
     function fetchSessionData() {
     $.getJSON('/get_session_data', function(data) {
         initializeWebSocket(data.sessionId, data.nonce, data.userInfo);
+        console.log('Session data:', data);
     }).fail(function(jqXHR, textStatus, errorThrown) {
         console.error('Error fetching session data:', textStatus, errorThrown);
     });
