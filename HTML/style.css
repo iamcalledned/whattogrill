@@ -235,37 +235,68 @@ body {
     z-index: 1; /* Ensure logo stays on top and isn't overlapped by the absolute-positioned elements */
 }
 
-.options-menu {
-  display: none;
-  position: absolute;
-  left: 0; /* Align to the left side */
-  top: 100%; /* Directly below the header */
-  background: white; /* Or any color that matches your design */
-  border: 1px solid #ddd; /* Optional border */
-  z-index: 1000; /* Ensure it's on top of other content */
-  width: 100%; /* Or the width you prefer */
-  /* Add other styling as needed for padding, text, etc. */
-}
-.options-menu {
-  /* Existing styles... */
+/* Overlay styles */
+/* Styles for the overlay */
+.overlay {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed position */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7); /* Black background with opacity */
+    z-index: 1000; /* Sit on top of other elements */
 }
 
+/* Styles for the content inside the overlay */
+.overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+    background: white; /* White background for the content */
+}
+
+/* Styles for the options menu */
+.options-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    right: 0;
+    top: 60px; /* Adjust based on your header's height */
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+
+
+
+/* Display the menu when 'show' class is added */
+.options-menu.show {
+    display: block;
+}
+
+/* Styles for menu items */
 .menu-items {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .menu-item {
-  padding: 10px 20px;
-  cursor: pointer;
-  border-bottom: 1px solid #ddd; /* Separates menu items */
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 .menu-item:hover {
-  background-color: #f2f2f2; /* Hover effect for menu items */
+    background-color: #f8f8f8;
 }
 
-/* Overlay styles */
-
+.menu-item:last-child {
+    border-bottom: none;
+}
 

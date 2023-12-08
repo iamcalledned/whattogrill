@@ -99,8 +99,35 @@
         fetchSessionData();
     });
     
+    
     $(document).ready(function() {
         initializeWebSocket();
+            // Hamburger menu functionality
+    $('.hamburger-menu').click(function() {
+        $('.options-menu').toggleClass('show');
+    });
+
+    // Event listener for 'About' option in the hamburger menu
+    $('#about').click(function() {
+        showOverlay('About', 'This is some information about our service...');
+    });
+
+    // Function to show the overlay with dynamic content
+    function showOverlay(title, content) {
+        const overlay = $('<div class="overlay"></div>');
+        const overlayContent = $('<div class="overlay-content"></div>');
+        const overlayTitle = $('<h2></h2>').text(title);
+        const overlayText = $('<p></p>').text(content);
+        const closeButton = $('<button>Close</button>');
+
+        closeButton.click(function() {
+            overlay.remove();
+        });
+
+        overlayContent.append(overlayTitle, overlayText, closeButton);
+        overlay.append(overlayContent);
+        $('body').append(overlay);
+    }
     });
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.hamburger-menu').addEventListener('click', function() {
@@ -123,31 +150,3 @@ document.addEventListener('DOMContentLoaded', (event) => {
         showOverlay('About', 'This is some information about our service...');
     });
 });
-
-function showOverlay(title, content) {
-    const overlay = document.createElement('div');
-    overlay.classList.add('overlay');
-
-    const overlayContent = document.createElement('div');
-    overlayContent.classList.add('overlay-content');
-
-    const overlayTitle = document.createElement('h2');
-    overlayTitle.textContent = title;
-
-    const overlayText = document.createElement('p');
-    overlayText.textContent = content;
-
-    const closeButton = document.createElement('button');
-    closeButton.textContent = 'Close';
-    closeButton.onclick = function() {
-        overlay.remove();
-    };
-
-    overlayContent.appendChild(overlayTitle);
-    overlayContent.appendChild(overlayText);
-    overlayContent.appendChild(closeButton);
-    overlay.appendChild(overlayContent);
-
-    document.body.appendChild(overlay);
-    overlay.style.display = 'block';
-};
