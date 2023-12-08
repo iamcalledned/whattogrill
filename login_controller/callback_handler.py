@@ -32,9 +32,11 @@ async def handle_callback(redis_client):
     print("in callback")
     print("redis client:", redis_client)
     code = request.args.get('code')
+    print("code:", code)
     if code:
         try:
             tokens = exchange_code_for_token(code)
+            print("tokens:", tokens)
             if tokens:
                 id_token = tokens['id_token']
                 decoded_token = validate_token(id_token)
