@@ -62,6 +62,6 @@ async def logged_in(session, redis_client):
 
         
         print("USER LOGGED IN: ", user_info)
-        return await render_template('chat.html', sessionId=session_id, nonce=nonce, user_info=user_info)
+        return render_template('chat.html', sessionId=session_id, nonce=nonce, user_info=user_info)
     else:
         return redirect(url_for('login'))
