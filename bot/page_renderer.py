@@ -23,6 +23,7 @@ redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
 
 
 async def logged_in(session, redis_client):
+    print("at /logged_in")
     if 'username' in session:
         nonce = generate_nonce()
         session_id = session.get('session_id')

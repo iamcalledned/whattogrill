@@ -45,12 +45,14 @@ print("redis client", redis_client)
 
 @app.route('/login')
 async def login():
+    print("at /login")
     auth_url = f"{config.COGNITO_DOMAIN}/login?client_id={config.COGNITO_APP_CLIENT_ID}&response_type=code&scope=openid&redirect_uri={config.REDIRECT_URI}"
     return redirect(auth_url)
 
 
 @app.route('/get_session_data')
 def get_session_data():
+    print("at /get_session_data")
     # Assuming session_id and nonce are stored in the Flask session or similar
     session_id = session.get('session_id')
     nonce = session.get('nonce')
@@ -64,6 +66,7 @@ def get_session_data():
 #process the callback from AWS Cognito and attempt to log user in
 @app.route('/callback')
 async def callback():
+    print("at /callback")
 ####maybe add a check hre to see if the user is already logged in
 
     return await handle_callback(redis_client)  # Pass the Redis client to the handler
