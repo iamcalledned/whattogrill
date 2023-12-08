@@ -17,7 +17,7 @@ OPENAI_API_KEY = config.OPENAI_API_KEY
 
 # Initialize OpenAI client
 openai_client = OpenAI()
-openai_client.api_key = os.getenv("OPENAI_API_KEY")
+openai_client.api_key = config.OPENAI_API_KEY
 
 async def create_thread_in_openai():
     try:

@@ -16,8 +16,7 @@ OPENAI_API_KEY = config.OPENAI_API_KEY
 
 # Initialize OpenAI client
 openai_client = OpenAI()
-openai_client.api_key = os.getenv("OPENAI_API_KEY")  # Ensure you have set this environment variable
-
+openai_client.api_key = config.OPENAI_API_KEY
 
 #send the message    
 async def send_message(thread_id_n, message):

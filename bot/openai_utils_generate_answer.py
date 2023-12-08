@@ -33,7 +33,7 @@ logging.basicConfig(
 
 # Initialize OpenAI client
 openai_client = OpenAI()
-openai_client.api_key = os.getenv("OPENAI_API_KEY")  # Ensure you have set this environment variable
+openai_client.api_key = config.OPENAI_API_KEY
 client = OpenAI()
 
 async def generate_answer(userID, message, user_ip, uuid):
