@@ -33,7 +33,8 @@ logging.basicConfig(
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/login": {"origins": "https://www.whattogrill.com localhost:8000"}})
+CORS(app, resources={r"/login": {"origins": "https://www.whattogrill.com localhost:8000"},
+                      r"/get_session_data": {"origins": "https://www.whattogrill.com localhost:8000"}})
 app.secret_key = config.FLASK_SECRET_KEY
 
 # Wrap the Flask app for ASGI compatibility
