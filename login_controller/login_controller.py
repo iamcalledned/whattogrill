@@ -51,7 +51,7 @@ async def login():
 async def callback():
 ####maybe add a check hre to see if the user is already logged in
 
-    return handle_callback(redis_client)  # Pass the Redis client to the handler
+    return await handle_callback(redis_client)  # Pass the Redis client to the handler
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0', port=8080)
