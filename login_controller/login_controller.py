@@ -54,6 +54,7 @@ def get_session_data():
     session_id = session.get('session_id')
     nonce = session.get('nonce')
     user_info = session.get('user_info')  # Adjust as per your actual session keys
+    print("user info from get session data", user_info)
 
     return jsonify(sessionId=session_id, nonce=nonce, userInfo=user_info)
 
