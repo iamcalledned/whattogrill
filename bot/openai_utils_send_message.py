@@ -9,7 +9,7 @@ openai_client.api_key = os.getenv("OPENAI_API_KEY")  # Ensure you have set this 
 
 
 #send the message    
-def send_message(thread_id_n, message):
+async def send_message(thread_id_n, message):
     try:
         response = openai_client.beta.threads.messages.create(
             thread_id_n,

@@ -8,6 +8,7 @@ import database  # Importing the database module
 from database import get_active_thread_for_user, insert_user, insert_thread, insert_conversation
 import datetime
 import logging
+import asyncio
 
 log_file_path = '/home/ubuntu/whattogrill-backend/logs/generate_answer_logs.txt'
 logging.basicConfig(
@@ -21,7 +22,7 @@ openai_client = OpenAI()
 openai_client.api_key = os.getenv("OPENAI_API_KEY")  # Ensure you have set this environment variable
 client = OpenAI()
 
-def generate_answer(userID, message, user_ip):
+async def generate_answer(userID, message, user_ip, uuid):
     conn = database.create_connection()
     if conn is None:
         return "Error: Failed to connect to the database."
@@ -34,21 +35,21 @@ def generate_answer(userID, message, user_ip):
         thread_id_n = active_thread[0]
         print("Active thread found for userID:", userID, "Thread ID:", thread_id_n)
         
-        if is_thread_valid(thread_id_n):
+        if await is_thread_valid(thread_id_n):
             print("Thread is valid. Continuing with Thread ID:", thread_id_n)
         else:
             print("Thread is no longer valid. Creating a new thread.")
-            thread_id_n = create_thread_in_openai()
+            thread_id_n = await create_thread_in_openai()
             current_time = datetime.datetime.now().isoformat()
             insert_thread(conn, thread_id_n, user_id, True, current_time)
     else:
         print("No active thread found for userID:", userID, "Creating a new thread.")
-        thread_id_n = create_thread_in_openai()
+        thread_id_n = await create_thread_in_openai()
         current_time = datetime.datetime.now().isoformat()
         insert_thread(conn, thread_id_n, user_id, True, current_time)
 
     if thread_id_n:
-        response_text = send_message(thread_id_n, message)
+        response_text = await send_message(thread_id_n, message)
         print("created message to send")
 
         # Create the run on OpenAI
@@ -75,7 +76,7 @@ def generate_answer(userID, message, user_ip):
                     print("Error encountered in run")
                     break
 
-                time.sleep(1)  # Wait for 1 second before the next status check
+                await asyncio.sleep(1)   # Wait for 1 second before the next status check
 
             messages = client.beta.threads.messages.list(
                 thread_id=thread_id_n

@@ -68,7 +68,7 @@ async def chatbot_handler(websocket, path):
             user_ip = websocket.remote_address[0]  # Get client IP address
 
             # Assuming generate_answer is a function you've defined
-            response_text = generate_answer(userID, message, user_ip)
+            response_text = await generate_answer(userID, message, user_ip)
 
             # Prepare the response
             response = {

@@ -29,7 +29,7 @@ logging.basicConfig(
 redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
 
 
-def logged_in(session, redis_client):
+async def logged_in(session, redis_client):
     if 'username' in session:
         
         nonce = generate_nonce()

@@ -6,7 +6,7 @@ import os
 openai_client = OpenAI()
 openai_client.api_key = os.getenv("OPENAI_API_KEY")
 
-def create_thread_in_openai():
+async def create_thread_in_openai():
     try:
         thread_response = openai_client.beta.threads.create()
         thread_id_n = thread_response.id
@@ -16,7 +16,7 @@ def create_thread_in_openai():
         print(f"Error in creating thread: {e}")
         return None
 
-def is_thread_valid(thread_id):
+async def is_thread_valid(thread_id):
     try:
         my_thread = openai_client.beta.threads.retrieve(thread_id)
         # Add your logic here based on how OpenAI's response indicates a valid thread.
