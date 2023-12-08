@@ -17,7 +17,7 @@ import config
 from callback_handler import handle_callback
 import asyncio
 import websockets
-import page_renderer
+from page_renderer import logged_in
 from asgiref.wsgi import WsgiToAsgi
 import logging
 import gevent
@@ -67,14 +67,20 @@ def get_session_data():
 @app.route('/callback')
 async def callback():
     print("at /callback")
-####maybe add a check hre to see if the user is already logged in
-    # Get session data
-    response = get_session_data()
-    session_data = response.get_json()
-    existing_session_id = session_data.get('sessionId')
-    print("existing session id at beginning of callback", existing_session_id)
 
-    return await handle_callback(redis_client, existing_session_id)  # Pass the Redis client to the handler
+    # Check if the user already has a valid session
+    session_id = session.get('session_id')
+    if session_id:
+        # Check if the session exists in Redis
+        redis_data = redis_client.get(session_id)
+        if redis_data:
+            user_info = json.loads(redis_data.decode('utf-8'))
+            # Validate the user_info (you can add more checks as needed)
+            if 'username' in user_info and 'email' in user_info:
+                # If session and user info are valid, redirect to the desired page
+                return await logged_in(session, redis_client)
+                
+    return await handle_callback(redis_client)  # Pass the Redis client to the handler
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0', port=8080)

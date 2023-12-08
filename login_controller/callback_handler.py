@@ -28,16 +28,12 @@ logging.basicConfig(
 )
 
 
-async def handle_callback(redis_client, existing_session_id):
+async def handle_callback(redis_client):
     
     print("in callback")
-    print("redis client:", redis_client)
-    print("existing session id before code line:", existing_session_id)
     code = request.args.get('code')
     print("code:", code)
     # Retrieve session data before checking the code
-    print("existing session id:", existing_session_id)
-
     if code:
         try:
             tokens = exchange_code_for_token(code)
