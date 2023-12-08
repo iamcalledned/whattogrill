@@ -7,6 +7,7 @@ import websockets
 import redis
 import config
 import logging
+import os
 
 
 log_file_path = '/home/ubuntu/whattogrill-backend/logs/page_renderer_logs.txt'
