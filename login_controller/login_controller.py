@@ -72,6 +72,7 @@ async def callback():
     response = get_session_data()
     session_data = response.get_json()
     existing_session_id = session_data.get('sessionId')
+    print("existing session id at beginning of callback", existing_session_id)
 
     return await handle_callback(redis_client, existing_session_id)  # Pass the Redis client to the handler
 
