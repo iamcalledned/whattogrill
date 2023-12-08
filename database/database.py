@@ -17,6 +17,7 @@ import config
 DB_PATH = config.DB_PATH
 
 def create_connection(db_file=DB_PATH):
+    print("db path", DB_PATH, db_file)
     try:
         conn = sqlite3.connect(db_file)
         #print('Connection to db successful!!')
