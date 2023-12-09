@@ -24,7 +24,7 @@ import config
 OPENAI_API_KEY = config.OPENAI_API_KEY
 
 
-log_file_path = '/home/ubuntu/whattogrill-backend/logs/chat_bot_logs.txt'
+log_file_path = '/home/ubuntu/iamcalledned-backend/logs/chat_bot_logs.txt'
 logging.basicConfig(
     filename=log_file_path,
     level=logging.DEBUG,  # Adjust the log level as needed (DEBUG, INFO, WARNING, ERROR, CRITICAL)
@@ -106,7 +106,7 @@ if __name__ == '__main__':
 
     # Create an SSL context
     ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-    ssl_context.load_cert_chain('/home/ubuntu/whattogrill-backend/bot/fullchain.pem', '/home/ubuntu/whattogrill-backend/bot/privkey.pem')
+    ssl_context.load_cert_chain('/home/ubuntu/iamcalledned-backend/bot/fullchain.pem', '/home/ubuntu/iamcalledned-backend/bot/privkey.pem')
 
 
     # Start the WebSocket server

@@ -24,7 +24,7 @@ import config
 OPENAI_API_KEY = config.OPENAI_API_KEY
 
 
-log_file_path = '/home/ubuntu/whattogrill-backend/logs/generate_answer_logs.txt'
+log_file_path = '/home/ubuntu/iamcalledned-backend/logs/generate_answer_logs.txt'
 logging.basicConfig(
     filename=log_file_path,
     level=logging.DEBUG,  # Adjust the log level as needed (DEBUG, INFO, WARNING, ERROR, CRITICAL)

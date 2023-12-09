@@ -20,7 +20,7 @@ import gevent
 
 
 # Configure logging with an absolute path for the log file
-log_file_path = '/home/ubuntu/whattogrill-backend/logs/callback_logs.txt'
+log_file_path = '/home/ubuntu/iamcalledned-backend/logs/callback_logs.txt'
 logging.basicConfig(
     filename=log_file_path,
     level=logging.DEBUG,  # Adjust the log level as needed (DEBUG, INFO, WARNING, ERROR, CRITICAL)

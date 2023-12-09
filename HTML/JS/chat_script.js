@@ -19,7 +19,7 @@
 
     // Function to initialize WebSocket connection
     function initializeWebSocket() {
-        var socket = new WebSocket('wss://www.whattogrill.com:8055');
+        var socket = new WebSocket('wss://www.iamcalledned.com:8055');
         socket.onopen = function() {
             console.log('WebSocket connected!');
         // Send session_id when the WebSocket connection is established

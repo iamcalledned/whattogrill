@@ -24,7 +24,7 @@ COGNITO_APP_CLIENT_ID = config.COGNITO_APP_CLIENT_ID
 COGNITO_DOMAIN = config.COGNITO_DOMAIN
 REDIRECT_URI = config.REDIRECT_URI
 
-log_file_path = '/home/ubuntu/whattogrill-backend/logs/authorization_logs.txt'
+log_file_path = '/home/ubuntu/iamcalledned-backend/logs/authorization_logs.txt'
 
 logging.basicConfig(
     filename=log_file_path,

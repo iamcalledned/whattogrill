@@ -24,7 +24,7 @@ import gevent
 
 
 
-log_file_path = '/home/ubuntu/whattogrill-backend/logs/callback_logs.txt'
+log_file_path = '/home/ubuntu/iamcalledned-backend/logs/callback_logs.txt'
 logging.basicConfig(
     filename=log_file_path,
     level=logging.DEBUG,  # Adjust the log level as needed (DEBUG, INFO, WARNING, ERROR, CRITICAL)
@@ -33,8 +33,8 @@ logging.basicConfig(
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/login": {"origins": "https://www.whattogrill.com localhost:8000"},
-                      r"/get_session_data": {"origins": "https://www.whattogrill.com localhost:8000"}})
+CORS(app, resources={r"/login": {"origins": "https://www.iamcalledned.com localhost:8000"},
+                      r"/get_session_data": {"origins": "https://www.iamcalledned.com localhost:8000"}})
 app.secret_key = config.FLASK_SECRET_KEY
 
 # Wrap the Flask app for ASGI compatibility
