@@ -10,7 +10,7 @@ import logging
 import os
 
 
-log_file_path = '/home/ubuntu/whattogrill-backend/logs/page_renderer_logs.txt'
+log_file_path = '/home/ubuntu/iamcalledned-backend/logs/page_renderer_logs.txt'
 logging.basicConfig(
     filename=log_file_path,
     level=logging.DEBUG,  # Adjust the log level as needed (DEBUG, INFO, WARNING, ERROR, CRITICAL)
