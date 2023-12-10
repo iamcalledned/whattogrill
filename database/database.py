@@ -7,6 +7,7 @@ current_script_path = os.path.dirname(os.path.abspath(__file__))
 parent_directory = os.path.dirname(current_script_path)
 # Add the config directory to sys.path
 sys.path.append(os.path.join(parent_directory, 'config'))
+sys.path.append(os.path.join(parent_directory, 'bot'))
 import sqlite3
 from sqlite3 import Error
 import datetime
