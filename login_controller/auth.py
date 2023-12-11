@@ -18,6 +18,7 @@ import logging
 import gevent
 from flask import session
 import base64
+from urllib.parse import urlencode
 
 
 # Cognito Configuration
@@ -48,13 +49,13 @@ def exchange_code_for_token(code):
         'redirect_uri': REDIRECT_URI,
         'code_verifier': session.get('code_verifier')  # Use .get for safe access
     }
+    encoded_data = urlencode(data)
     try:
-        response = requests.post(token_url, headers=headers, data=data)
+        response = requests.post(token_url, headers=headers, data=encoded_data)
         if response.status_code == 200:
             session.pop('code_verifier', None)  # Remove the code verifier
             return response.json()
         else:
-            # Log the response status and body for debugging
             logging.error(f"Token exchange failed with status {response.status_code}: {response.text}")
             print(f"Token exchange failed with status {response.status_code}: {response.text}")
             return None
