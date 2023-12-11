@@ -94,7 +94,7 @@ async def get_session_data():
 async def callback():
     print("at /callback")
     # Print the referrer URL if available
-
+    session_id = session.get('session_id')
     redis_data = redis_client.get(session_id)
     print("redis data", redis_data)
     referrer = request.headers.get('Referer')
