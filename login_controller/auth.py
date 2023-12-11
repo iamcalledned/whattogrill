@@ -16,6 +16,7 @@ from jwt.algorithms import RSAAlgorithm
 import config
 import logging
 import gevent
+from flask import session
 
 
 # Cognito Configuration
@@ -43,13 +44,22 @@ def exchange_code_for_token(code):
         'grant_type': 'authorization_code',
         'client_id': COGNITO_APP_CLIENT_ID,
         'code': code,
-        'redirect_uri': REDIRECT_URI
+        'redirect_uri': REDIRECT_URI,
+        'code_verifier': session['code_verifier']
     }
     try:
         response = requests.post(token_url, headers=headers, data=data)
-        return response.json() if response.status_code == 200 else None
+        if response.status_code == 200:
+            # Once the code is successfully exchanged, remove the code verifier from the session
+            session.pop('code_verifier', None)
+            return response.json()
+        else:
+            return None
     except requests.RequestException as e:
-        raise Exception(f"Error contacting token endpoint: {str(e)}")
+        # It's a good practice to also remove the code verifier if an exception occurs
+        session.pop('code_verifier', None)
+        raise Exception(f"Error contacting token endpoint: {str(e)}")    
+
 
 def validate_token(id_token):
     jwks_url = f"https://cognito-idp.us-east-1.amazonaws.com/{COGNITO_USER_POOL_ID}/.well-known/jwks.json"

@@ -21,6 +21,7 @@ from page_renderer import logged_in
 from asgiref.wsgi import WsgiToAsgi
 import logging
 import gevent
+import hashlib
 
 
 
@@ -46,8 +47,26 @@ print("redis client", redis_client)
 @app.route('/login')
 async def login():
     print("at /login")
-    auth_url = f"{config.COGNITO_DOMAIN}/login?client_id={config.COGNITO_APP_CLIENT_ID}&response_type=code&scope=openid&redirect_uri={config.REDIRECT_URI}"
+     # Generate a code verifier
+    code_verifier = base64.urlsafe_b64encode(os.urandom(40)).decode('utf-8')
+    code_verifier = code_verifier.replace('+', '-').replace('/', '_').replace('=', '')
+    session['code_verifier'] = code_verifier
+
+     # Generate a code challenge
+    code_challenge = hashlib.sha256(code_verifier.encode('utf-8')).digest()
+    code_challenge = base64.urlsafe_b64encode(code_challenge).decode('utf-8')
+    code_challenge = code_challenge.replace('+', '-').replace('/', '_').replace('=', '')
+     # Construct the Cognito URL with the code challenge
+    auth_url = (f"{config.COGNITO_DOMAIN}/login"
+                f"?client_id={config.COGNITO_APP_CLIENT_ID}"
+                "&response_type=code"
+                "&scope=openid"
+                f"&redirect_uri={config.REDIRECT_URI}"
+                f"&code_challenge={code_challenge}"
+                "&code_challenge_method=S256")
+    
     return redirect(auth_url)
+
 
 
 @app.route('/get_session_data')
