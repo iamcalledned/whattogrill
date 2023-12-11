@@ -65,6 +65,7 @@ async def login():
                 f"&redirect_uri={config.REDIRECT_URI}"
                 f"&code_challenge={code_challenge}"
                 "&code_challenge_method=S256")
+    print("auth url", auth_url)
     
     return redirect(auth_url)
 
