@@ -54,13 +54,15 @@ def exchange_code_for_token(code):
             session.pop('code_verifier', None)  # Remove the code verifier
             return response.json()
         else:
-            logging.error(f"Token exchange failed: {response.text}")
+            # Log the response status and body for debugging
+            logging.error(f"Token exchange failed with status {response.status_code}: {response.text}")
+            print(f"Token exchange failed with status {response.status_code}: {response.text}")
             return None
     except requests.RequestException as e:
         session.pop('code_verifier', None)
         logging.error(f"Error contacting token endpoint: {str(e)}")
+        print(f"Error contacting token endpoint: {str(e)}")
         return None
-
 
 def validate_token(id_token):
     jwks_url = f"https://cognito-idp.us-east-1.amazonaws.com/{COGNITO_USER_POOL_ID}/.well-known/jwks.json"
