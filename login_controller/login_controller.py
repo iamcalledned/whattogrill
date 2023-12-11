@@ -92,36 +92,22 @@ async def get_session_data():
 #process the callback from AWS Cognito and attempt to log user in
 @app.route('/callback')
 async def callback():
-    print("at /callback")
-    # Print the referrer URL if available
-    session_id = session.get('session_id')
-    redis_data = redis_client.get(session_id)
-    print("redis data", redis_data)
-    referrer = request.headers.get('Referer')
-    print(f"Referrer URL: {referrer}")
-
-    # Print the client's IP address
-    client_ip = request.remote_addr
-    print(f"Client IP address: {client_ip}")
-
-    # Print the user-agent
-    user_agent = request.headers.get('User-Agent')
-    print(f"User-Agent: {user_agent}")
-
+    print("starting /callback")
+    
     # Check if the user already has a valid session
     session_id = session.get('session_id')
     print("SESSION ID from callback: ", session_id)
-    if session_id:
+    #if session_id:
         # Check if the session exists in Redis
-        print("we have a valid session")
-        redis_data = redis_client.get(session_id)
-        print("redis data", redis_data)
-        if redis_data:
-            user_info = json.loads(redis_data.decode('utf-8'))
-            # Validate the user_info (you can add more checks as needed)
-            if 'username' in user_info and 'email' in user_info:
-                # If session and user info are valid, redirect to the desired page
-                return await logged_in(session, redis_client)
+    #    print("we have a valid session")
+    #    redis_data = redis_client.get(session_id)
+    #    print("redis data", redis_data)
+    #    if redis_data:
+    #        user_info = json.loads(redis_data.decode('utf-8'))
+    #        # Validate the user_info (you can add more checks as needed)
+    #        if 'username' in user_info and 'email' in user_info:
+    #            # If session and user info are valid, redirect to the desired page
+    #            return await logged_in(session, redis_client)
                 
     return await handle_callback(redis_client)  # Pass the Redis client to the handler
 
