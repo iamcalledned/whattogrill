@@ -40,6 +40,7 @@ CORS(app, resources={r"/login": {"origins": "https://www.whattogrill.com localho
                       r"/get_session_data": {"origins": "https://www.whattogrill.com localhost:8000"}})
 
 session_config.init_session(app)
+print("session config", session_config.session_config)
 
 app.secret_key = config.FLASK_SECRET_KEY
 
