@@ -97,21 +97,10 @@
     // Use the document ready function to initialize WebSocket connection
     $(document).ready(function() {
         fetchSessionData();
-    });
-    
-    
-    $(document).ready(function() {
         initializeWebSocket();
-            // Hamburger menu functionality
-    $('.hamburger-menu').click(function() {
-        $('.options-menu').toggleClass('show');
-    });
-
-    // Event listener for 'About' option in the hamburger menu
-    $('#about').click(function() {
-        showOverlay('About', 'This is some information about our service...');
-    });
-
+    
+    
+   
     // Function to show the overlay with dynamic content
     function showOverlay(title, content) {
         const overlay = $('<div class="overlay"></div>');
