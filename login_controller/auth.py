@@ -17,6 +17,7 @@ import config
 import logging
 import gevent
 from flask import session
+import base64
 
 
 # Cognito Configuration
