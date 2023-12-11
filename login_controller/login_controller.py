@@ -53,6 +53,7 @@ print("redis client", redis_client)
 @app.after_request
 def after_request(response):
     for key, value in session.items():
+        print("f-key")
         print(f"{key}: {type(value)} - {value}")
     return response
 
