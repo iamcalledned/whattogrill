@@ -57,7 +57,7 @@ def after_request(response):
         print(f"{key}: {type(value)} - {value}")
     return response
 
-
+@app.route('/login')
 async def login():
     print("at /login")
 
