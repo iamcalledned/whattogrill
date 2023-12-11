@@ -116,6 +116,7 @@ async def callback():
 
 @app.route('/dashboard')
 def dashboard():
+    print("in dashboard")
     if 'username' in session:
         return logged_in(session, redis_client)  # Render the final page
     else:
