@@ -58,38 +58,23 @@ def after_request(response):
     return response
 
 
-@app.route('/login')
 async def login():
     print("at /login")
-     # Generate a code verifier
+
+    # Generate a code verifier
     code_verifier = base64.urlsafe_b64encode(os.urandom(40)).decode('utf-8')
-    print("code verifier", code_verifier)
-    code_verifier = code_verifier.replace('+', '-').replace('/', '_').replace('=', '')
     session['code_verifier'] = code_verifier
-    # Ensure code_verifier is a string
-    if isinstance(code_verifier, bytes):
-        code_verifier = code_verifier.decode('utf-8')
-    session['code_verifier'] = code_verifier
-    print("code verifier from session", code_verifier)
-    print(f"Code Verifier Set: {session.get('code_verifier')}")
 
-
-     # Generate a code challenge
+    # Generate a code challenge
     code_challenge = hashlib.sha256(code_verifier.encode('utf-8')).digest()
     code_challenge = base64.urlsafe_b64encode(code_challenge).decode('utf-8')
     code_challenge = code_challenge.replace('+', '-').replace('/', '_').replace('=', '')
-     # Construct the Cognito URL with the code challenge
-    auth_url = (f"{config.COGNITO_DOMAIN}/login"
-                f"?client_id={config.COGNITO_APP_CLIENT_ID}"
-                "&response_type=code"
-                "&scope=openid"
-                f"&redirect_uri={config.REDIRECT_URI}"
-                f"&code_challenge={code_challenge}"
-                "&code_challenge_method=S256")
-    print("auth url", auth_url)
-    
-    return redirect(auth_url)
 
+    # Construct the Cognito URL with the code challenge
+    auth_url = f"{config.COGNITO_DOMAIN}/login?client_id={config.COGNITO_APP_CLIENT_ID}&response_type=code&scope=openid&redirect_uri={config.REDIRECT_URI}&code_challenge={code_challenge}&code_challenge_method=S256"
+    print("auth url", auth_url)
+
+    return redirect(auth_url)
 
 
 @app.route('/get_session_data')
