@@ -37,6 +37,7 @@ async def handle_callback(redis_client):
     print("Current stack trace:")
     traceback.print_stack()
     # Retrieve session data before checking the code
+    print(f"Code Verifier Retrieved from callback: {session.get('code_verifier')}")
     if code:
         try:
             tokens = exchange_code_for_token(code)
