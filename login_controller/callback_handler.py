@@ -16,6 +16,7 @@ from page_renderer import logged_in
 import logging
 import asyncio
 import gevent
+import traceback
 
 
 
@@ -33,6 +34,8 @@ async def handle_callback(redis_client):
     print("in callback")
     code = request.args.get('code')
     print("code:", code)
+    print("Current stack trace:")
+    traceback.print_stack()
     # Retrieve session data before checking the code
     if code:
         try:

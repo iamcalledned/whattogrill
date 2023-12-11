@@ -8,7 +8,7 @@ import redis
 import config
 import logging
 import os
-
+import traceback
 
 log_file_path = '/home/ubuntu/whattogrill-backend/logs/page_renderer_logs.txt'
 logging.basicConfig(
@@ -24,6 +24,8 @@ redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
 
 async def logged_in(session, redis_client):
     print("at /logged_in")
+    print("Current stack trace:")
+    traceback.print_stack()
     if 'username' in session:
         nonce = generate_nonce()
         session_id = session.get('session_id')
