@@ -21,11 +21,15 @@
     function initializeWebSocket() {
         var socket = new WebSocket('wss://www.whattogrill.com:8055');
         socket.onopen = function() {
-            console.log('WebSocket connected!');
-        // Send session_id when the WebSocket connection is established
-        socket.send(JSON.stringify({ session_id: sessionId }));
-        // Store session_id in local storage
-        localStorage.setItem('session_id', sessionId);
+            console.log('WebSocket connected!', user_id, userId);
+            // Send session_id and user_id when the WebSocket connection is established
+            socket.send(JSON.stringify({ session_id: sessionId, user_id: userId }));
+            // Store session_id in local storage
+            localStorage.setItem('session_id', sessionId);
+            // Send session_id when the WebSocket connection is established
+            socket.send(JSON.stringify({ session_id: sessionId }));
+            // Store session_id in local storage
+            localStorage.setItem('session_id', sessionId);
         };
     
         socket.onmessage = function(event) {
