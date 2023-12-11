@@ -8,7 +8,7 @@ parent_directory = os.path.dirname(current_script_path)
 # Add the config directory to sys.path
 sys.path.append(os.path.join(parent_directory, 'config'))
 sys.path.append(os.path.join(parent_directory, 'bot'))
-from flask import Flask, redirect, request, session, url_for, render_template, make_response, jsonify
+from flask import Flask, redirect, request, url_for, render_template, make_response, jsonify
 from flask_cors import CORS
 import redis
 import json
@@ -23,6 +23,7 @@ import logging
 import gevent
 import hashlib
 import base64
+import session_config
 
 
 
@@ -37,6 +38,9 @@ logging.basicConfig(
 app = Flask(__name__)
 CORS(app, resources={r"/login": {"origins": "https://www.whattogrill.com localhost:8000"},
                       r"/get_session_data": {"origins": "https://www.whattogrill.com localhost:8000"}})
+
+session_config.init_session(app)
+
 app.secret_key = config.FLASK_SECRET_KEY
 
 # Wrap the Flask app for ASGI compatibility
@@ -97,6 +101,7 @@ async def callback():
     # Check if the user already has a valid session
     session_id = session.get('session_id')
     print("SESSION ID from callback: ", session_id)
+    temp_session_id = session.get('session_id')
     #if session_id:
         # Check if the session exists in Redis
     #    print("we have a valid session")
