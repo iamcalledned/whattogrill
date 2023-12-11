@@ -46,20 +46,20 @@ def exchange_code_for_token(code):
         'client_id': COGNITO_APP_CLIENT_ID,
         'code': code,
         'redirect_uri': REDIRECT_URI,
-        'code_verifier': session['code_verifier']
+        'code_verifier': session.get('code_verifier')  # Use .get for safe access
     }
     try:
         response = requests.post(token_url, headers=headers, data=data)
         if response.status_code == 200:
-            # Once the code is successfully exchanged, remove the code verifier from the session
-            session.pop('code_verifier', None)
+            session.pop('code_verifier', None)  # Remove the code verifier
             return response.json()
         else:
+            logging.error(f"Token exchange failed: {response.text}")
             return None
     except requests.RequestException as e:
-        # It's a good practice to also remove the code verifier if an exception occurs
         session.pop('code_verifier', None)
-        raise Exception(f"Error contacting token endpoint: {str(e)}")    
+        logging.error(f"Error contacting token endpoint: {str(e)}")
+        return None
 
 
 def validate_token(id_token):
