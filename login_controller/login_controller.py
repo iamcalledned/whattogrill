@@ -114,6 +114,13 @@ async def callback():
                 
     return await handle_callback(redis_client)  # Pass the Redis client to the handler
 
+@app.route('/dashboard')
+def dashboard():
+    if 'username' in session:
+        return logged_in(session, redis_client)  # Render the final page
+    else:
+        return redirect(url_for('login'))
+
 if __name__ == '__main__':
     #app.run(host='0.0.0.0', port=8080)
     app.run()

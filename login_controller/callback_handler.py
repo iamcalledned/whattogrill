@@ -61,7 +61,7 @@ async def handle_callback(redis_client):
                 if not redis_set_result:
                     return 'Failed to save data to Redis.', 500
                 print("going to logged_in")
-                return await logged_in(session, redis_client)  # Call the function from login_controler
+                return redirect(url_for('dashboard'))
                 #return logged_in(session, redis_client)  # Call the function from login_controler
             else:   
                 return 'Error during token exchange.', 400
