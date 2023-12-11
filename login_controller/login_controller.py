@@ -107,9 +107,12 @@ async def callback():
 
     # Check if the user already has a valid session
     session_id = session.get('session_id')
+    print("SESSION ID from callback: ", session_id)
     if session_id:
         # Check if the session exists in Redis
+        print("we have a valid session")
         redis_data = redis_client.get(session_id)
+        print("redis data", redis_data)
         if redis_data:
             user_info = json.loads(redis_data.decode('utf-8'))
             # Validate the user_info (you can add more checks as needed)
