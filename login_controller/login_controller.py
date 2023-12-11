@@ -67,6 +67,17 @@ def get_session_data():
 @app.route('/callback')
 async def callback():
     print("at /callback")
+    # Print the referrer URL if available
+    referrer = request.headers.get('Referer')
+    print(f"Referrer URL: {referrer}")
+
+    # Print the client's IP address
+    client_ip = request.remote_addr
+    print(f"Client IP address: {client_ip}")
+
+    # Print the user-agent
+    user_agent = request.headers.get('User-Agent')
+    print(f"User-Agent: {user_agent}")
 
     # Check if the user already has a valid session
     session_id = session.get('session_id')
