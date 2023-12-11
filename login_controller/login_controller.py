@@ -58,6 +58,10 @@ async def login():
     print("code verifier", code_verifier)
     code_verifier = code_verifier.replace('+', '-').replace('/', '_').replace('=', '')
     session['code_verifier'] = code_verifier
+    # Ensure code_verifier is a string
+    if isinstance(code_verifier, bytes):
+        code_verifier = code_verifier.decode('utf-8')
+    session['code_verifier'] = code_verifier
     print("code verifier from session", code_verifier)
     print(f"Code Verifier Set: {session.get('code_verifier')}")
 
