@@ -50,6 +50,13 @@ app_asgi = WsgiToAsgi(app)
 redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
 print("redis client", redis_client)
 
+@app.after_request
+def after_request(response):
+    for key, value in session.items():
+        print(f"{key}: {type(value)} - {value}")
+    return response
+
+
 @app.route('/login')
 async def login():
     print("at /login")
