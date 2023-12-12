@@ -24,7 +24,7 @@ import gevent
 import hashlib
 import base64
 import session_config
-
+import Response
 
 
 log_file_path = '/home/ubuntu/whattogrill-backend/logs/callback_logs.txt'
@@ -78,6 +78,8 @@ async def login():
     auth_url = f"{config.COGNITO_DOMAIN}/login?client_id={config.COGNITO_APP_CLIENT_ID}&response_type=code&scope=openid&redirect_uri={config.REDIRECT_URI}&code_challenge={code_challenge}&code_challenge_method=S256"
     print("auth url", auth_url)
     print("about to redirect")
+    
+    response.headers['Location'] = auth_url
     try:
         return redirect(auth_url)
     except Exception as e:
@@ -105,9 +107,8 @@ async def callback():
     print("starting /callback")
     
     # Check if the user already has a valid session
-    #session_id = session.get('session_id')
-    #print("SESSION ID from callback: ", session_id)
-    print("SESSION ID from callback: ")
+    session_id = session.get('session_id')
+    print("SESSION ID from callback: ", session_id)
     temp_session_id = session.get('session_id')
     #if session_id:
         # Check if the session exists in Redis
