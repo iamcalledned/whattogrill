@@ -31,7 +31,7 @@ REDIRECT_URI = config.REDIRECT_URI
 
 log_file_path = config.LOG_PATH
 
-redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
+#redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
 
 logging.basicConfig(
     filename=log_file_path,
