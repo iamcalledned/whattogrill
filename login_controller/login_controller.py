@@ -40,14 +40,7 @@ CORS(app, resources={r"/login": {"origins": "https://www.whattogrill.com localho
                       r"/get_session_data": {"origins": "https://www.whattogrill.com localhost:8000"}})
 
 #session_config.init_session(app)
-try:
-    result = session_config.init_session(app)
-    if result == "success":
-        print("Session initialization was successful.")
-    else:
-        print("Session initialization failed.")
-except Exception as e:
-    print(f"An error occurred during session initialization: {str(e)}")
+
 
 
 
@@ -70,6 +63,14 @@ print("redis client", redis_client)
 @app.route('/login')
 async def login():
     print("at /login")
+    try:
+        result = session_config.init_session(app)
+        if result == "success":
+            print("Session initialization was successful.")
+        else:
+            print("Session initialization failed.")
+    except Exception as e:
+        print(f"An error occurred during session initialization: {str(e)}")
 
     # Generate a code verifier
     code_verifier = base64.urlsafe_b64encode(os.urandom(40)).decode('utf-8')
