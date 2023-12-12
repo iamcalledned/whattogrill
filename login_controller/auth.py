@@ -19,6 +19,8 @@ import gevent
 from flask import session
 import base64
 from urllib.parse import urlencode
+import redis
+from flask import session
 
 
 # Cognito Configuration
@@ -28,6 +30,8 @@ COGNITO_DOMAIN = config.COGNITO_DOMAIN
 REDIRECT_URI = config.REDIRECT_URI
 
 log_file_path = config.LOG_PATH
+
+redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
 
 logging.basicConfig(
     filename=log_file_path,
