@@ -17,7 +17,7 @@ import logging
 import asyncio
 import gevent
 import traceback
-import session_config
+
 
 
 
@@ -28,6 +28,7 @@ logging.basicConfig(
     level=logging.DEBUG,  # Adjust the log level as needed (DEBUG, INFO, WARNING, ERROR, CRITICAL)
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
+
 
 
 async def handle_callback(redis_client):
