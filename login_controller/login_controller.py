@@ -62,7 +62,8 @@ async def login():
     print("at /login")
 
     # Generate a code verifier
-    code_verifier = base64.urlsafe_b64encode(os.urandom(40)).decode('utf-8')
+    #code_verifier = base64.urlsafe_b64encode(os.urandom(40)).decode('utf-8')
+    code_verifier = base64.urlsafe_b64encode(os.urandom(40))
     print("code verifier", code_verifier)
     print("code verifier type",type(code_verifier))
     session['code_verifier'] = code_verifier
