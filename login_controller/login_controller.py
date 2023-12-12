@@ -86,6 +86,7 @@ async def login():
 @app.route('/callback')
 async def callback():
     print("starting /callback")
+    print(f"Code Verifier Retrieved from callback: {session.get('code_verifier')}")
     
     return await handle_callback(redis_client)  # Pass the Redis client to the handler
 
