@@ -75,6 +75,8 @@ async def login():
     print("about to redirect")
     response = Response()
     response.headers['Location'] = auth_url
+    for key, value in session.items():
+        print(f"Session Key: {key}, Session Value: {value}")
     try:
         return redirect(auth_url)
     except Exception as e:
