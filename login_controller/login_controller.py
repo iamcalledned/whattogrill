@@ -91,10 +91,9 @@ async def login():
     response = Response()
     response.headers['Location'] = auth_url
     try:
-        return redirect(auth_url)
+        return redirect("/")
     except Exception as e:
-        print("Error redirecting:", e)
-        return "Redirect failed"
+        print("Redirect error:", e) 
 
 
 @app.route('/get_session_data')
