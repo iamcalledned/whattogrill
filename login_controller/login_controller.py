@@ -41,6 +41,7 @@ CORS(app, resources={r"/login": {"origins": "https://www.whattogrill.com localho
 
 app.secret_key = config.FLASK_SECRET_KEY
 
+code_verifier = None
 
 # Wrap the Flask app for ASGI compatibility
 app_asgi = WsgiToAsgi(app)
@@ -50,6 +51,7 @@ print("redis client", redis_client)
 
 @app.route('/login')
 async def login():
+    global code_verifier
     print("at /login")
 
     # Check the initial session data
@@ -88,14 +90,14 @@ async def login():
 
 @app.route('/callback')
 async def callback():
+    global code_verifier
     print("starting /callback")
-
     # Check session data at the beginning of /callback
     print(f"Session Data (At the Beginning of /callback): {dict(session)}")
     print(f"Code Verifier Retrieved from callback: {session.get('code_verifier')}")
-
+    code_verifier = request.args.get('code_verifier')
     # Continue with the callback handling
-    return await handle_callback(redis_client)  # Pass the Redis client to the handler
+    return await handle_callback(redis_client, code_verifier)  # Pass the Redis client to the handler
 
 @app.route('/dashboard')
 def dashboard():
