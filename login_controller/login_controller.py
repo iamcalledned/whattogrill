@@ -67,6 +67,10 @@ async def login():
     
     session_config.init_session(app)
     print("session config", session_config)
+
+    session_id = os.urandom(24).hex()
+    session['session_id'] = session_id
+    print("session(sessionid)", session['session_id'])
     # Generate a code verifier
     code_verifier = base64.urlsafe_b64encode(os.urandom(40)).decode('utf-8')
     print("code verifier", code_verifier)
