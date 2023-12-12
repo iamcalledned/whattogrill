@@ -8,7 +8,7 @@ parent_directory = os.path.dirname(current_script_path)
 # Add the config directory to sys.path
 sys.path.append(os.path.join(parent_directory, 'config'))
 from flask import Flask, redirect, request, session, url_for, render_template, make_response
-from auth import exchange_code_for_token, validate_token, generate_nonce
+from auth import exchange_code_for_token, validate_token, generate_nonce, print_code_verifier
 import config
 import json
 import redis
@@ -44,6 +44,8 @@ async def handle_callback(redis_client):
     #traceback.print_stack()
     # Retrieve session data before checking the code
     print(f"Code Verifier Retrieved from callback: {session.get('code_verifier')}")
+    test_session_id = print_code_verifier(session_id)
+    print("test session id:", test_session_id)
     for key, value in session.items():
         print(f"Session Key in callback: {key}, Session Value: {value}")
     if code:

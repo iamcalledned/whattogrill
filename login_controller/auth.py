@@ -32,13 +32,31 @@ REDIRECT_URI = config.REDIRECT_URI
 
 log_file_path = config.LOG_PATH
 
-#redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
+redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
 
 logging.basicConfig(
     filename=log_file_path,
     level=logging.DEBUG,  # Adjust the log level as needed (DEBUG, INFO, WARNING, ERROR, CRITICAL)
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
+
+
+def print_code_verifier(temp_session_id):
+    # Retrieve the session data from Redis
+    session_data_json = redis_client.get(temp_session_id)
+    
+    if session_data_json:
+        # Deserialize the session data
+        session_data = json.loads(session_data_json)
+        
+        # Access and print the code_verifier
+        code_verifier = session_data.get('code_verifier')
+        if code_verifier:
+            print(f"Code Verifier for session {temp_session_id}: {code_verifier}")
+        else:
+            print(f"Code verifier not found in session data for session {temp_session_id}")
+    else:
+        print(f"No session data found for session ID: {temp_session_id}")
 
 
 def generate_nonce():
