@@ -40,6 +40,7 @@ async def handle_callback(redis_client, code_verifier):
     #print("Current stack trace:")
     #traceback.print_stack()
     # Retrieve session data before checking the code
+    print("code verifier before redis call", code_verifier)
     print(f"Code Verifier Retrieved from callback: {session.get('code_verifier')}")
     for key, value in session.items():
         print(f"Session Key in callback: {key}, Session Value: {value}")
