@@ -49,7 +49,7 @@ app.secret_key = config.FLASK_SECRET_KEY
 
 # Wrap the Flask app for ASGI compatibility
 app_asgi = WsgiToAsgi(app)
-session_config.init_session(app)
+
 redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
 print("redis client", redis_client)
 
@@ -65,7 +65,8 @@ print("redis client", redis_client)
 async def login():
     print("at /login")
     
-
+    session_config.init_session(app)
+    print("session config", session_config)
     # Generate a code verifier
     code_verifier = base64.urlsafe_b64encode(os.urandom(40)).decode('utf-8')
     print("code verifier", code_verifier)
