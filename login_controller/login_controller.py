@@ -53,12 +53,14 @@ async def login():
     
     session_id = os.urandom(24).hex()
     session['session_id'] = session_id
+    
     print("session(sessionid)", session['session_id'])
     # Generate a code verifier
     code_verifier = base64.urlsafe_b64encode(os.urandom(40)).decode('utf-8')
     print("code verifier", code_verifier)
     print("code verifier type", type(code_verifier))
     session['code_verifier'] = code_verifier
+    print(f"Code Verifier Retrieved from login: {session.get('code_verifier')}")
 
     # Generate a code challenge
     code_challenge = hashlib.sha256(code_verifier.encode('utf-8')).digest()
