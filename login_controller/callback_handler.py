@@ -55,6 +55,10 @@ async def handle_callback(redis_client):
                 # Attempt to save data to Redis
                 session_id = os.urandom(24).hex()
                 session['session_id'] = session_id
+                print("session ID type",type(session_id))
+                print("session sessionID", session['session_id'])
+
+                
                 user_info = {'username': session['username'], 'email': session['email'], 'name': session['name'], 'session_id': session['session_id']}
                 redis_set_result = redis_client.set(session_id, json.dumps(user_info))
                 print("redis set result:", redis_set_result)
