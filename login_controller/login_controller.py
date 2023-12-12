@@ -105,8 +105,9 @@ async def callback():
     print("starting /callback")
     
     # Check if the user already has a valid session
-    session_id = session.get('session_id')
-    print("SESSION ID from callback: ", session_id)
+    #session_id = session.get('session_id')
+    #print("SESSION ID from callback: ", session_id)
+    print("SESSION ID from callback: ")
     temp_session_id = session.get('session_id')
     #if session_id:
         # Check if the session exists in Redis
