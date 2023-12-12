@@ -5,10 +5,13 @@ from flask import Flask
 from flask_sockets import Sockets
 from flask import redirect
 from config import Config
+from asgiref.wsgi import WsgiToAsgi
 
 
 app = Flask(__name__)
 sockets = Sockets(app)
+
+app_asgi = WsgiToAsgi(app)
 
 @app.route('/login')
 def login():
@@ -16,4 +19,4 @@ def login():
     return redirect(auth_url)
 
 # In your login_controller.py
-app_asgi = app
+app_asgi = WsgiToAsgi(app)
