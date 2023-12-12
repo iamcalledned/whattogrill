@@ -79,8 +79,13 @@ async def login():
     # Construct the Cognito URL with the code challenge
     auth_url = f"{config.COGNITO_DOMAIN}/login?client_id={config.COGNITO_APP_CLIENT_ID}&response_type=code&scope=openid&redirect_uri={config.REDIRECT_URI}&code_challenge={code_challenge}&code_challenge_method=S256"
     print("auth url", auth_url)
+    print("about to redirect")
+    try:
+        return redirect(auth_url)
+    except Exception as e:
+        print("Error redirecting:", e)
+        return "Redirect failed"
 
-    return redirect(auth_url)
 
 
 @app.route('/get_session_data')
