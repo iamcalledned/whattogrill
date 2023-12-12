@@ -43,6 +43,7 @@ logging.basicConfig(
 
 def print_code_verifier(temp_session_id):
     # Retrieve the session data from Redis
+    print("temp_session_id", temp_session_id)
     session_data_json = redis_client.get(temp_session_id)
     
     if session_data_json:
