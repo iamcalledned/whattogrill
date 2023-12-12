@@ -10,6 +10,6 @@ def init_session(app):
     app.config['SESSION_USE_SIGNER'] = True
     app.config['SESSION_REDIS'] = redis.Redis(host='localhost', port=6378, db=0)
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)  # Adjust as needed
-    app.config['SESSION_COOKIE_NAME'] = 'session_id'
+    app.config['SESSION_COOKIE_NAME'] = 'SessionName'
 
     Session(app)
