@@ -1,19 +1,6 @@
+# login_controller.py
 import sys
 import os
-import asyncio
-import base64
-import hashlib
-import json
-import logging
-import redis
-from flask import Flask, redirect, request, session, url_for, Response
-from flask_cors import CORS
-from asgiref.wsgi import WsgiToAsgi
-from auth import generate_nonce, exchange_code_for_token, validate_token
-import config
-from callback_handler import handle_callback
-from page_renderer import logged_in
-
 # Get the directory of the current script
 current_script_path = os.path.dirname(os.path.abspath(__file__))
 # Set the path to the parent directory (one folder up)
@@ -21,6 +8,32 @@ parent_directory = os.path.dirname(current_script_path)
 # Add the config directory to sys.path
 sys.path.append(os.path.join(parent_directory, 'config'))
 sys.path.append(os.path.join(parent_directory, 'bot'))
+from flask import Flask, redirect, request, session, url_for, render_template, make_response, jsonify, Response
+from flask_cors import CORS
+import redis
+import json
+from auth import generate_nonce, exchange_code_for_token, validate_token
+import config
+from callback_handler import handle_callback
+import asyncio
+import websockets
+from page_renderer import logged_in
+from asgiref.wsgi import WsgiToAsgi
+import logging
+import gevent
+import hashlib
+import base64
+import session_config
+
+
+
+log_file_path = '/home/ubuntu/whattogrill-backend/logs/callback_logs.txt'
+logging.basicConfig(
+    filename=log_file_path,
+    level=logging.DEBUG,  # Adjust the log level as needed (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+
 
 app = Flask(__name__)
 CORS(app, resources={r"/login": {"origins": "https://www.whattogrill.com localhost:8000"},
