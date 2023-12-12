@@ -65,12 +65,14 @@ async def login():
     code_verifier = base64.urlsafe_b64encode(os.urandom(40)).decode('utf-8')
     session['code_verifier'] = code_verifier
     print("code verifier", code_verifier)
+    print("code verifier type",type(code_verifier))
 
     # Generate a code challenge
     code_challenge = hashlib.sha256(code_verifier.encode('utf-8')).digest()
     code_challenge = base64.urlsafe_b64encode(code_challenge).decode('utf-8')
     code_challenge = code_challenge.replace('+', '-').replace('/', '_').replace('=', '')
     print("code challenge", code_challenge)
+    print("code challenge type",type(code_challenge))
 
     # Construct the Cognito URL with the code challenge
     auth_url = f"{config.COGNITO_DOMAIN}/login?client_id={config.COGNITO_APP_CLIENT_ID}&response_type=code&scope=openid&redirect_uri={config.REDIRECT_URI}&code_challenge={code_challenge}&code_challenge_method=S256"
