@@ -33,6 +33,7 @@ logging.basicConfig(
 async def handle_callback(redis_client):
     print("redis client", redis_client)
     print("in callback")
+    
     code = request.args.get('code')
     print("code:", code)
     #print("Current stack trace:")

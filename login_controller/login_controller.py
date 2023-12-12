@@ -23,7 +23,7 @@ import logging
 import gevent
 import hashlib
 import base64
-import session_config
+from session_config import init_session  
 
 
 
