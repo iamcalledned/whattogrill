@@ -4,7 +4,7 @@ import os
 from flask import Flask
 from flask_sockets import Sockets
 from flask import redirect
-import config
+from config import Config
 
 
 app = Flask(__name__)
