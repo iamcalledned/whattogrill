@@ -44,7 +44,7 @@ async def handle_callback(redis_client):
     #traceback.print_stack()
     # Retrieve session data before checking the code
     print(f"Code Verifier Retrieved from callback: {session.get('code_verifier')}")
-    test_session_id = print_code_verifier(session_id)
+    test_session_id = print_code_verifier(test_session_id)
     print("test session id:", test_session_id)
     for key, value in session.items():
         print(f"Session Key in callback: {key}, Session Value: {value}")
