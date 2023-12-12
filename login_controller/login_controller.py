@@ -8,7 +8,7 @@ parent_directory = os.path.dirname(current_script_path)
 # Add the config directory to sys.path
 sys.path.append(os.path.join(parent_directory, 'config'))
 sys.path.append(os.path.join(parent_directory, 'bot'))
-from flask import Flask, redirect, request, session, url_for, render_template, make_response, jsonify
+from flask import Flask, redirect, request, session, url_for, render_template, make_response, jsonify, Response
 from flask_cors import CORS
 import redis
 import json
@@ -78,7 +78,7 @@ async def login():
     auth_url = f"{config.COGNITO_DOMAIN}/login?client_id={config.COGNITO_APP_CLIENT_ID}&response_type=code&scope=openid&redirect_uri={config.REDIRECT_URI}&code_challenge={code_challenge}&code_challenge_method=S256"
     print("auth url", auth_url)
     print("about to redirect")
-    
+    response = Response()
     response.headers['Location'] = auth_url
     try:
         return redirect(auth_url)
