@@ -49,9 +49,8 @@ app.secret_key = config.FLASK_SECRET_KEY
 
 # Wrap the Flask app for ASGI compatibility
 app_asgi = WsgiToAsgi(app)
-
-#redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
-redis_client = session_config.init_session(app)
+session_config.init_session(app)
+redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
 print("redis client", redis_client)
 
 #@app.after_request
