@@ -73,7 +73,7 @@ def exchange_code_for_token(code):
         'client_id': COGNITO_APP_CLIENT_ID,
         'code': code,
         'redirect_uri': REDIRECT_URI,
-        'code_verifier': request.args.get('code_verifier')
+        'code_verifier': session.get('code_verifier')
     }
     print("data", data)
     encoded_data = urlencode(data)
