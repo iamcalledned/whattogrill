@@ -74,7 +74,7 @@ async def login():
     response = Response()
     response.headers['Location'] = auth_url
     try:
-        return redirect("/")
+        return redirect(auth_url)
     except Exception as e:
         print("Redirect error:", e)
 
