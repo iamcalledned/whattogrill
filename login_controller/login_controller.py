@@ -24,7 +24,7 @@ import gevent
 import hashlib
 import base64
 import session_config
-import Response
+
 
 
 log_file_path = '/home/ubuntu/whattogrill-backend/logs/callback_logs.txt'
