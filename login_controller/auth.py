@@ -44,7 +44,7 @@ logging.basicConfig(
 def generate_nonce():
     return base64.b64encode(os.urandom(16)).decode('utf-8')
 
-def exchange_code_for_token(code, code_verifier):
+def exchange_code_for_token(code):
     token_url = f"{COGNITO_DOMAIN}/oauth2/token"
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     for key, value in session.items():
