@@ -20,7 +20,7 @@ import base64
 from urllib.parse import urlencode
 import redis
 from flask import session
-import session_config
+
 
 
 # Cognito Configuration
@@ -62,14 +62,14 @@ def exchange_code_for_token(code):
     try:
         response = requests.post(token_url, headers=headers, data=encoded_data)
         if response.status_code == 200:
-            session.pop('code_verifier', None)  # Remove the code verifier
+            #session.pop('code_verifier', None)  # Remove the code verifier
             return response.json()
         else:
             logging.error(f"Token exchange failed with status {response.status_code}: {response.text}")
             print(f"Token exchange failed with status {response.status_code}: {response.text}")
             return None
     except requests.RequestException as e:
-        session.pop('code_verifier', None)
+        #session.pop('code_verifier', None)
         logging.error(f"Error contacting token endpoint: {str(e)}")
         print(f"Error contacting token endpoint: {str(e)}")
         return None
