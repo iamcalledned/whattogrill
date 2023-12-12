@@ -63,6 +63,9 @@ async def login():
 
     # Generate a code verifier
     #code_verifier = base64.urlsafe_b64encode(os.urandom(40)).decode('utf-8')
+    code_verifier = base64.urlsafe_b64encode(os.urandom(40)).decode('utf-8')
+
+
     code_verifier = base64.urlsafe_b64encode(os.urandom(40))
     print("code verifier", code_verifier)
     print("code verifier type",type(code_verifier))
@@ -72,6 +75,7 @@ async def login():
 
     # Generate a code challenge
     code_challenge = hashlib.sha256(code_verifier.encode('utf-8')).digest()
+
     code_challenge = base64.urlsafe_b64encode(code_challenge).decode('utf-8')
     code_challenge = code_challenge.replace('+', '-').replace('/', '_').replace('=', '')
     print("code challenge", code_challenge)
