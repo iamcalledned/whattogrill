@@ -51,10 +51,13 @@ print("redis client", redis_client)
 @app.route('/login')
 async def login():
     print("at /login")
-    
+
+    # Check the initial session data
+    print(f"Session Data (Before Redirection): {dict(session)}")
+
     session_id = os.urandom(24).hex()
     session['session_id'] = session_id
-    
+
     print("session(sessionid)", session['session_id'])
     # Generate a code verifier
     code_verifier = base64.urlsafe_b64encode(os.urandom(40)).decode('utf-8')
@@ -74,10 +77,10 @@ async def login():
     auth_url = f"{config.COGNITO_DOMAIN}/login?client_id={config.COGNITO_APP_CLIENT_ID}&response_type=code&scope=openid&redirect_uri={config.REDIRECT_URI}&code_challenge={code_challenge}&code_challenge_method=S256"
     print("auth url", auth_url)
     print("about to redirect")
-    response = Response()
-    response.headers['Location'] = auth_url
-    for key, value in session.items():
-        print(f"Session Key: {key}, Session Value: {value}")
+
+    # Check session data again before redirection
+    print(f"Session Data (Before Redirection): {dict(session)}")
+
     try:
         return redirect(auth_url)
     except Exception as e:
@@ -86,8 +89,12 @@ async def login():
 @app.route('/callback')
 async def callback():
     print("starting /callback")
+
+    # Check session data at the beginning of /callback
+    print(f"Session Data (At the Beginning of /callback): {dict(session)}")
     print(f"Code Verifier Retrieved from callback: {session.get('code_verifier')}")
-    
+
+    # Continue with the callback handling
     return await handle_callback(redis_client)  # Pass the Redis client to the handler
 
 @app.route('/dashboard')
