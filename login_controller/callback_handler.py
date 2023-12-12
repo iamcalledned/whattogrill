@@ -18,7 +18,7 @@ import asyncio
 import gevent
 import traceback
 
-    
+
 
 
 # Configure logging with an absolute path for the log file
@@ -31,9 +31,10 @@ logging.basicConfig(
 
 
 
-async def handle_callback(redis_client, code_verifier):
+async def handle_callback(redis_client):
     print("redis client", redis_client)
     print("in callback")
+    
     code = request.args.get('code')
     print("code:", code)
     #print("Current stack trace:")
@@ -44,7 +45,7 @@ async def handle_callback(redis_client, code_verifier):
         print(f"Session Key in callback: {key}, Session Value: {value}")
     if code:
         try:
-            tokens = exchange_code_for_token(code, code_verifier)
+            tokens = exchange_code_for_token(code)
             print("tokens:", tokens)
             if tokens:
                 id_token = tokens['id_token']
