@@ -41,6 +41,8 @@ CORS(app, resources={r"/login": {"origins": "https://www.whattogrill.com localho
 
 app.secret_key = config.FLASK_SECRET_KEY
 
+init_session(app)
+
 # Wrap the Flask app for ASGI compatibility
 app_asgi = WsgiToAsgi(app)
 
