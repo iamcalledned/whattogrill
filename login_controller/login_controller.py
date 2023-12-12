@@ -56,10 +56,10 @@ async def login():
     # Check the initial session data
     print(f"Session Data (Before Redirection): {dict(session)}")
 
-    session_id = os.urandom(24).hex()
-    session['session_id'] = session_id
+    temp_session_id = os.urandom(24).hex()
+    session['temp_session_id'] = temp_session_id
 
-    print("session(sessionid)", session['session_id'])
+    print("session(sessionid)", session['temp_session_id'])
     # Generate a code verifier
     code_verifier = base64.urlsafe_b64encode(os.urandom(40)).decode('utf-8')
     print("code verifier", code_verifier)
@@ -75,7 +75,7 @@ async def login():
     print("code challenge type", type(code_challenge))
 
     # Construct the Cognito URL with the code challenge
-    state = session['session_id']
+    state = session['temp_session_id']
     print("state", state)
     auth_url = f"{config.COGNITO_DOMAIN}/login?client_id={config.COGNITO_APP_CLIENT_ID}&response_type=code&scope=openid&redirect_uri={config.REDIRECT_URI}&state={state}&code_challenge={code_challenge}&code_challenge_method=S256"
     #auth_url = f"{config.COGNITO_DOMAIN}/login?client_id={config.COGNITO_APP_CLIENT_ID}&response_type=code&scope=openid&redirect_uri={config.REDIRECT_URI}&code_challenge={code_challenge}&code_challenge_method=S256"
