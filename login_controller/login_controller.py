@@ -96,17 +96,17 @@ async def login():
         print("Redirect error:", e) 
 
 
-@app.route('/get_session_data')
-async def get_session_data():
-    print("at /get_session_data")
-    # Assuming session_id and nonce are stored in the Flask session or similar
-    session_id = session.get('session_id')
-    print("SESSION ID: ", session_id)
-    nonce = session.get('nonce')
-    user_info = session.get('user_info')  # Adjust as per your actual session keys
-    print("user info from get session data", user_info)
-
-    return jsonify(sessionId=session_id, nonce=nonce, userInfo=user_info)
+#@app.route('/get_session_data')
+#async def get_session_data():
+#    print("at /get_session_data")
+#    # Assuming session_id and nonce are stored in the Flask session or similar
+#    session_id = session.get('session_id')
+#    print("SESSION ID: ", session_id)
+#    nonce = session.get('nonce')
+#    user_info = session.get('user_info')  # Adjust as per your actual session keys
+#    print("user info from get session data", user_info)
+#
+#    return jsonify(sessionId=session_id, nonce=nonce, userInfo=user_info)
 
 
 
