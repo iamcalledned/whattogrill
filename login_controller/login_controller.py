@@ -50,7 +50,8 @@ app.secret_key = config.FLASK_SECRET_KEY
 # Wrap the Flask app for ASGI compatibility
 app_asgi = WsgiToAsgi(app)
 
-redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
+#redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
+redis_client = session_config.init_session(app)
 print("redis client", redis_client)
 
 #@app.after_request
@@ -64,12 +65,7 @@ print("redis client", redis_client)
 
 async def login():
     print("at /login")
-    try:
-        session_config.init_session(app)
-        print("Session initialization was successful.")
-    except Exception as e:
-        print(f"An error occurred during session initialization: {str(e)}")
-
+    
 
     # Generate a code verifier
     code_verifier = base64.urlsafe_b64encode(os.urandom(40)).decode('utf-8')
