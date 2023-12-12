@@ -31,7 +31,7 @@ logging.basicConfig(
 
 
 
-async def handle_callback(redis_client, code_verifier):
+async def handle_callback(redis_client):
     print("redis client", redis_client)
     print("in callback")
     
@@ -40,13 +40,12 @@ async def handle_callback(redis_client, code_verifier):
     #print("Current stack trace:")
     #traceback.print_stack()
     # Retrieve session data before checking the code
-    print("code verifier before redis call", code_verifier)
     print(f"Code Verifier Retrieved from callback: {session.get('code_verifier')}")
     for key, value in session.items():
         print(f"Session Key in callback: {key}, Session Value: {value}")
     if code:
         try:
-            tokens = exchange_code_for_token(code, code_verifier)
+            tokens = exchange_code_for_token(code)
             print("tokens:", tokens)
             if tokens:
                 id_token = tokens['id_token']
@@ -61,7 +60,7 @@ async def handle_callback(redis_client, code_verifier):
                 # Attempt to save data to Redis
                 session_id = os.urandom(24).hex()
                 session['session_id'] = str(session_id)
-                #session['session_id'] = session_id
+                session['session_id'] = session_id
                 print("session ID type",type(session_id))
                 print("session sessionID", session['session_id'])
 

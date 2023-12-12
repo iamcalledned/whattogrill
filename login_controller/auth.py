@@ -46,7 +46,6 @@ def generate_nonce():
 
 def exchange_code_for_token(code, code_verifier):
     token_url = f"{COGNITO_DOMAIN}/oauth2/token"
-    print("code verifier", code_verifier)
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     for key, value in session.items():
         print(f"Session Key: {key}, Session Value: {value}")
@@ -55,7 +54,7 @@ def exchange_code_for_token(code, code_verifier):
         'client_id': COGNITO_APP_CLIENT_ID,
         'code': code,
         'redirect_uri': REDIRECT_URI,
-        'code_verifier': code_verifier
+        'code_verifier': request.args.get('code_verifier')
     }
     print("data", data)
     encoded_data = urlencode(data)
