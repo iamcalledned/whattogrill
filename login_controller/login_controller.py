@@ -78,7 +78,7 @@ async def login():
 
     # Construct the Cognito URL with the code challenge
     #auth_url = f"{config.COGNITO_DOMAIN}/login?client_id={config.COGNITO_APP_CLIENT_ID}&response_type=code&scope=openid&redirect_uri={config.REDIRECT_URI}&code_challenge={code_challenge}&code_challenge_method=S256"
-    auth_url = 'https://api.whattogrill.com/login?client_id=79i5hkaq33a89b9587mj9gm2gq&response_type=code&scope=openid&redirect_uri=https://auth.whattogrill.com/callback
+    auth_url = f"{config.COGNITO_DOMAIN}/login?client_id={config.COGNITO_APP_CLIENT_ID}&response_type=code&scope=openid&redirect_uri={config.REDIRECT_URI}"
     print("auth url", auth_url)
     print("about to redirect")
     try:
