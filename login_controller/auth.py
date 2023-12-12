@@ -16,11 +16,11 @@ from jwt.algorithms import RSAAlgorithm
 import config
 import logging
 import gevent
-from flask import session
 import base64
 from urllib.parse import urlencode
 import redis
 from flask import session
+import session_config
 
 
 # Cognito Configuration

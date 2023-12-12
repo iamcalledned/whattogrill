@@ -17,6 +17,7 @@ import logging
 import asyncio
 import gevent
 import traceback
+import session_config
 
 
 
@@ -53,7 +54,7 @@ async def handle_callback(redis_client):
                 print("made it to logged in")
                 
                 # Attempt to save data to Redis
-                #session_id = os.urandom(24).hex()
+                session_id = os.urandom(24).hex()
                 session['session_id'] = session_id
                 print("session ID type",type(session_id))
                 print("session sessionID", session['session_id'])
