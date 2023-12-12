@@ -37,6 +37,8 @@ async def handle_callback(redis_client):
     
     code = request.args.get('code')
     print("code:", code)
+    state = request.args.get('state')
+    print("state from callback:", state)
     #print("Current stack trace:")
     #traceback.print_stack()
     # Retrieve session data before checking the code
