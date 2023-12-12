@@ -13,6 +13,8 @@ def init_session(app):
     app.config['SESSION_COOKIE_NAME'] = 'SessionName'
     app.config['SESSION_COOKIE_SECURE'] = True  # Only send cookies over HTTPS
     app.config['SESSION_COOKIE_HTTPONLY'] = True  # Prevent JavaScript access to session cookie
+    app.config['SESSION_COOKIE_DOMAIN'] = '.whattogrill.com'
+
 
 
     Session(app)
