@@ -31,10 +31,9 @@ logging.basicConfig(
 
 
 
-async def handle_callback(redis_client):
+async def handle_callback(redis_client, code_verifier):
     print("redis client", redis_client)
     print("in callback")
-    
     code = request.args.get('code')
     print("code:", code)
     #print("Current stack trace:")
@@ -45,7 +44,7 @@ async def handle_callback(redis_client):
         print(f"Session Key in callback: {key}, Session Value: {value}")
     if code:
         try:
-            tokens = exchange_code_for_token(code)
+            tokens = exchange_code_for_token(code, code_verifier)
             print("tokens:", tokens)
             if tokens:
                 id_token = tokens['id_token']

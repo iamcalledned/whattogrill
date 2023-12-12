@@ -19,7 +19,7 @@ import gevent
 import base64
 from urllib.parse import urlencode
 import redis
-from flask import session
+from flask import session, request
 import session_config
 
 
@@ -44,7 +44,7 @@ logging.basicConfig(
 def generate_nonce():
     return base64.b64encode(os.urandom(16)).decode('utf-8')
 
-def exchange_code_for_token(code):
+def exchange_code_for_token(code, code_verifier):
     token_url = f"{COGNITO_DOMAIN}/oauth2/token"
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     for key, value in session.items():
@@ -54,7 +54,7 @@ def exchange_code_for_token(code):
         'client_id': COGNITO_APP_CLIENT_ID,
         'code': code,
         'redirect_uri': REDIRECT_URI,
-        'code_verifier': session.get('code_verifier')
+        'code_verifier': request.args.get('code_verifier')
     }
     print("data", data)
     encoded_data = urlencode(data)
