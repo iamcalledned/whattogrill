@@ -11,11 +11,11 @@ sys.path.append(os.path.join(parent_directory, 'bot'))
 import sqlite3
 from sqlite3 import Error
 import datetime
-import config
+from config import Config
 
 
 # Define the DB_PATH directly here or use a separate configuration file
-DB_PATH = config.DB_PATH
+DB_PATH = Config.DB_PATH
 
 def create_connection(db_file=DB_PATH):
     print("db path", DB_PATH, db_file)
