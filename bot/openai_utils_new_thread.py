@@ -9,9 +9,9 @@ parent_directory = os.path.dirname(current_script_path)
 # Add the config directory to sys.path
 sys.path.append(os.path.join(parent_directory, 'database'))
 sys.path.append(os.path.join(parent_directory, 'config'))
-import config
+from config import Config
 
-OPENAI_API_KEY = config.OPENAI_API_KEY
+OPENAI_API_KEY = Config.OPENAI_API_KEY
 
 
 
