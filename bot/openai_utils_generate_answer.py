@@ -17,11 +17,11 @@ from database import get_active_thread_for_user, insert_user, insert_thread, ins
 import datetime
 import logging
 import asyncio
-import config
+from config import Config
 
 
 # Other imports as necessary
-OPENAI_API_KEY = config.OPENAI_API_KEY
+OPENAI_API_KEY = Config.OPENAI_API_KEY
 
 
 log_file_path = '/home/ubuntu/whattogrill-backend/logs/generate_answer_logs.txt'
@@ -33,7 +33,7 @@ logging.basicConfig(
 
 # Initialize OpenAI client
 openai_client = OpenAI()
-openai_client.api_key = config.OPENAI_API_KEY
+openai_client.api_key = Config.OPENAI_API_KEY
 client = OpenAI()
 
 async def generate_answer(userID, message, user_ip, uuid):
