@@ -17,11 +17,11 @@ import logging
 from uuid import uuid4
 from datetime import datetime, timezone
 from openai_utils_generate_answer import generate_answer
-import config
+from config import Config
 
 
 # Other imports as necessary
-OPENAI_API_KEY = config.OPENAI_API_KEY
+OPENAI_API_KEY = Config.OPENAI_API_KEY
 
 
 log_file_path = '/home/ubuntu/whattogrill-backend/logs/chat_bot_logs.txt'
@@ -31,7 +31,7 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 # Initialize Redis client
-redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=0)
+redis_client = redis.Redis(host=Config.REDIS_HOST, port=Config.REDIS_PORT, db=0)
 
 # Dictionary to store user_id: websocket mapping
 connections = {}
