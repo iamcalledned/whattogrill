@@ -245,9 +245,11 @@ body {
   z-index: 1000; /* Ensure it's on top of other content */
   width: 100%; /* Or the width you prefer */
   /* Add other styling as needed for padding, text, etc. */
+ 
+  .options-menu.show {
+    display: block;
+    background-color: red; /* Temporary to make it visible */
 }
-.options-menu {
-  /* Existing styles... */
 }
 
 .menu-items {
